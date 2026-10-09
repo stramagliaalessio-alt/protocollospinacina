@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Una richiesta speciale 🌹</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ffe6eb 0%, #ffb6c1 50%, #ff9ebb 100%);
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      padding: 35px 25px;
+      border-radius: 24px;
+      box-shadow: 0 15px 35px rgba(219, 112, 147, 0.25);
+      max-width: 420px;
+      width: 100%;
+      border: 2px solid #ffe0e9;
+    }
+    .gif-container {
+      margin-bottom: 20px;
+    }
+    .gif-container img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.3);
+      border: 4px solid #fff;
+    }
+    h1 {
+      font-size: 1.6rem;
+      color: #d63384;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    p.subtitle {
+      font-size: 0.95rem;
+      color: #888;
+      margin-bottom: 25px;
+      font-style: italic;
+    }
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .btn {
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 30px;
+      border: none;
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-yes {
+      background-color: #ff4081;
+      color: white;
+      box-shadow: 0 6px 18px rgba(255, 64, 129, 0.35);
+      cursor: pointer;
+      z-index: 10;
+    }
+    .btn-yes:hover {
+      background-color: #e91e63;
+    }
+    .btn-no {
+      background-color: #f0f0f0;
+      color: #aaa;
+      cursor: not-allowed;
+      border: 1px solid #ddd;
+      pointer-events: none;
+    }
+    .no-wrapper {
+      display: inline-block;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="gif-container">
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcTYxejR2dnRybG1zZjFvZXZxeGV3YmZ6cWVxczR3aGJuYmxubnA5eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif" alt="Gatto con la rosa">
+    </div>
+
+    <h1>Prego fornire numero di telefono 🌹</h1>
+    <p class="subtitle">(Non verranno effettuate chiamate notturne)</p>
+
+    <div class="btn-container">
+      <a id="yesBtn" class="btn btn-yes" href="#" target="_blank">Lo voglio 💖</a>
+      
+      <div class="no-wrapper" id="noWrapper">
+        <button class="btn btn-no" tabindex="-1">No 😅</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tuoNumero = "393466297958";
+    const messaggio = "SALVE VORREI UNA BIRRA";
+
+    const yesBtn = document.getElementById('yesBtn');
+    yesBtn.href = `https://wa.me/${tuoNumero}?text=${encodeURIComponent(messaggio)}`;
+
+    let scala = 1;
+    const noWrapper = document.getElementById('noWrapper');
+
+    function ingrandisciSì() {
+      scala += 0.25;
+      yesBtn.style.transform = `scale(${scala})`;
+    }
+
+    noWrapper.addEventListener('click', ingrandisciSì);
+    noWrapper.addEventListener('mouseover', ingrandisciSì);
+    noWrapper.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      ingrandisciSì();
+    });
+  </script>
+
+</body>
+</html>
