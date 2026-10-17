@@ -3,56 +3,126 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notifica di Servizio 🌹</title>
+  <title>protocollo ovetto✨</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,700;1,400&display=swap');
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
+
     body {
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background: linear-gradient(135deg, #ffe6eb 0%, #ffb6c1 50%, #ff9ebb 100%);
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      text-align: center;
-      padding: 20px;
-    }
-    .card {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 35px 25px;
-      border-radius: 24px;
-      box-shadow: 0 15px 35px rgba(219, 112, 147, 0.25);
-      max-width: 420px;
-      width: 100%;
-      border: 2px solid #ffe0e9;
+      background: #0f051d;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow: hidden;
       position: relative;
     }
+
+    /* Sfondo animato sfumato psichedelico */
+    .bg-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 64, 129, 0.4) 0%, rgba(138, 43, 226, 0.2) 50%, transparent 70%);
+      animation: moveGlow 10s infinite alternate ease-in-out;
+      z-index: 0;
+      filter: blur(60px);
+    }
+
+    @keyframes moveGlow {
+      0% { transform: translate(-100px, -100px) scale(1); }
+      100% { transform: translate(100px, 100px) scale(1.3); }
+    }
+
+    /* Cuoricini e particelle fluttuanti nello spazio */
+    .particle {
+      position: absolute;
+      color: rgba(255, 182, 193, 0.5);
+      font-size: 20px;
+      animation: floatUp 6s infinite linear;
+      z-index: 1;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(105vh) scale(0.5) rotate(0deg); opacity: 0; }
+      20% { opacity: 0.8; }
+      80% { opacity: 0.8; }
+      100% { transform: translateY(-10vh) scale(1.5) rotate(360deg); opacity: 0; }
+    }
+
+    /* Struttura principale in vetro artistico (Glassmorphism) */
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 40px 30px;
+      border-radius: 35px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+      max-width: 440px;
+      width: 90%;
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: cardAppear 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    @keyframes cardAppear {
+      0% { opacity: 0; transform: scale(0.8) translateY(40px) rotate(-3deg); }
+      100% { opacity: 1; transform: scale(1) translateY(0) rotate(0deg); }
+    }
+
+    /* Animazione di cambio slide fluida */
+    .slide-anim {
+      animation: slideTransition 0.5s ease-in-out;
+    }
+
+    @keyframes slideTransition {
+      0% { opacity: 0; transform: scale(0.9) translateY(15px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
     .gif-container {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      position: relative;
     }
+
     .gif-container img {
-      width: 200px;
-      height: 200px;
+      width: 210px;
+      height: 210px;
       object-fit: cover;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.25);
-      border: 4px solid #fff;
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(255, 64, 129, 0.4);
+      border: 3px solid rgba(255, 255, 255, 0.6);
+      animation: floatGif 3s infinite ease-in-out;
     }
+
+    @keyframes floatGif {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
     h1 {
-      font-size: 1.4rem;
-      color: #d63384;
-      margin-bottom: 20px;
+      font-size: 1.5rem;
+      color: #ffffff;
+      margin-bottom: 25px;
       font-weight: 700;
       line-height: 1.4;
-      min-height: 60px;
+      min-height: 70px;
       display: flex;
       align-items: center;
       justify-content: center;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
+
     .btn-container {
       display: flex;
       justify-content: center;
@@ -60,101 +130,141 @@
       gap: 15px;
       flex-wrap: wrap;
       margin-top: 15px;
-      min-height: 60px;
+      min-height: 65px;
     }
+
     .btn {
-      padding: 12px 26px;
-      font-size: 1rem;
+      padding: 14px 28px;
+      font-size: 1.05rem;
       font-weight: bold;
-      border-radius: 30px;
+      border-radius: 50px;
       border: none;
-      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
     }
+
     .btn-next {
-      background-color: #ff4081;
+      background: linear-gradient(135deg, #ff4081 0%, #7928ca 100%);
       color: white;
-      box-shadow: 0 6px 18px rgba(255, 64, 129, 0.35);
+      box-shadow: 0 8px 25px rgba(255, 64, 129, 0.5);
     }
+
     .btn-next:hover {
-      background-color: #e91e63;
+      transform: scale(1.08) rotate(2deg);
+      box-shadow: 0 12px 30px rgba(255, 64, 129, 0.8);
     }
+
     .btn-yes {
-      background-color: #ff4081;
+      background: linear-gradient(135deg, #ff4081 0%, #ff6b81 100%);
       color: white;
-      box-shadow: 0 6px 18px rgba(255, 64, 129, 0.35);
+      box-shadow: 0 8px 25px rgba(255, 64, 129, 0.5);
       z-index: 10;
     }
-    .music-hint {
-      font-size: 0.75rem;
-      color: #aaa;
-      margin-top: 15px;
+
+    .btn-yes:hover {
+      transform: scale(1.1);
+    }
+
+    .btn-no {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ddd;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(5px);
+    }
+
+    .music-bar {
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: #ffb6c1;
+      cursor: pointer;
+      display: inline-block;
+      padding: 6px 15px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px dashed rgba(255, 182, 193, 0.4);
+      transition: 0.3s;
+    }
+
+    .music-bar:hover {
+      background: rgba(255, 255, 255, 0.15);
     }
   </style>
 </head>
 <body>
 
-  <!-- Elemento audio nascosto con una musichetta di sottofondo -->
-  <audio id="bgMusic" loop>
-    <source src="https://actions.google.com/sounds/v1/ambiences/coffeeshop.ogg" type="audio/ogg">
-    <source src="https://www.bensound.com/bensound-music/bensound-cute.mp3" type="audio/mpeg">
+  <div class="bg-glow"></div>
+
+  <!-- Audio di sottofondo Kawaii -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=cute-bgm-108272.mp3" type="audio/mpeg">
   </audio>
 
-  <div class="card">
+  <div class="card" id="mainCard">
     <div class="gif-container">
-      <img id="gifImage" src="" alt="Gatto">
+      <img id="gifImage" src="" alt="Opera d'Arte">
     </div>
 
     <h1 id="slideText"></h1>
 
     <div class="btn-container" id="btnArea"></div>
-    <div class="music-hint">🎵 La musica si attiverà al primo tocco</div>
+    <div class="music-bar" id="musicHint" onclick="avviaMusica()">🎵 Clicca qui per attivare la colonna sonora</div>
   </div>
 
   <script>
+    // Generatore di particelle fluttuanti artistiche nello sfondo
+    setInterval(() => {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.innerHTML = Math.random() > 0.5 ? '✨' : '💖';
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.animationDuration = (Math.random() * 3 + 4) + 's';
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 6000);
+    }, 400);
+
     const tuoNumero = "393466297958";
     const messaggioWhatsApp = "BUONASERA SONO MARIACHIARAK E PRETENDO I DOLCETTI CHE MI DEVI";
     const linkWhatsApp = `https://api.whatsapp.com/send?phone=${tuoNumero}&text=${encodeURIComponent(messaggioWhatsApp)}`;
 
     const frasiNo = [
-      "Ma veramente? ",
-      "La dieta si fa a luglio! ",
-      "il no è sacro ma tu vuoi dolcetti",
-      "hai uno sguardo che è hna nuke"
+      "Ma veramente? 😅",
+      "La dieta si fa a luglio! 🥐",
+      "Non accetto un no come risposta! 😜",
+      "Dai, premi quel pulsante spaziale!"
     ];
     let indiceFrasiNo = 0;
     let scalaSì = 1;
 
     const slides = [
       {
-        gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3A5ZmFmN3Rrb3N2cnlhOXByNTF3dzdzOGYzbmt3dm9ydmd4czByOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKSjRrfIPjeiVyM/giphy.gif",
+        gif: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ29sbnp2cHkxeWkwMWk4aXZtaTlqaTRsa2R1bHltYTV4eGo5ajMwZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/31fV3PglscF64FZqeB/giphy.gif",
         text: "Sono un sensitivo... 🧙‍♂️🐱",
         type: "next",
         nextSlide: 1
       },
       {
-        gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNXdqMWt5M3p0eDZocjV0eGVyeTY1bmtkcnRqN2VvMzNmNjU1ZWpkayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/13CoXDiaCcCoyk/giphy.gif",
-        text: "...e percepivo un'aura di stress. Sei stressata? 🙀",
+        gif: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExeWplZWNsNW5wd3R0djBmdm9icTI3NWlqMmV2cmZzdzN5dHowZDZpaCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/nCSNKeaXfpfyZZXDio/giphy.gif",
+        text: "...e percepivo un'aura di stress. Sei stressata? ",
         type: "choice_stress"
       },
       {
-        gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW8xaGthNmI5aGlzandmNzV5b2psMHlpaG05d2I5d3AzaWhhZzhkMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/mlvseq9yvZhba/giphy.gif",
-        text: "Conosco un rimedio infallibile contro lo stress. 👨‍⚕️🐱",
+        gif: "https://media3.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3eno5a2lwdTZtcXI1YXA1d3VqZHJ0MG0zYzA5cmRueDdweHV6cWxmNyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3CgrPTmlp0dIQ/giphy.webp",
+        text: "Conosco un rimedio infallibile contro lo stress. ",
         type: "next",
         nextSlide: 3
       },
       {
-        gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWR2MHM5MGIxcnh2ZXZmYXFidWdydXp1aTRkdm16dmtxcjlsMnNneSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/B4ORVnBvJCVvq/giphy.gif",
+        gif: "https://media1.tenor.com/m/j5rPRPBwSOMAAAAd/cat-smacking-other-cat-cat.gif",
         text: "No, non è quello che pensi... cioè sì, ma no. ",
         type: "next",
         nextSlide: 4
       },
       {
-        gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWU0MXYxeWRmd2t5bTB4NzlyNDZ3bjI0ejRxNmZlMm1lZXE4enMyeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif",
+        gif: "https://tenor.com/it/view/cat-cat-cooking-chef-cat-chef-gif-1132815579185467415",
         text: "Ti devo dei dolcetti ansiolitici. Ti vanno? 👨‍🍳🧁",
         type: "final_choice"
       }
@@ -163,18 +273,25 @@
     let musicStarted = false;
 
     function avviaMusica() {
-      if (!musicStarted) {
-        const music = document.getElementById('bgMusic');
-        music.volume = 0.4; // Volume gradevole non troppo alto
-        music.play().catch(e => console.log("Audio bloccato dal browser"));
+      const music = document.getElementById('bgMusic');
+      music.volume = 0.5;
+      music.play().then(() => {
         musicStarted = true;
-      }
+        document.getElementById('musicHint').style.display = 'none';
+      }).catch(e => {
+        console.log("In attesa di interazione");
+      });
     }
 
     function renderSlide(index) {
-      avviaMusica(); // Fa partire la musica appena interagisce
-      const slide = slides[index];
+      avviaMusica();
       
+      const card = document.getElementById('mainCard');
+      card.classList.remove('slide-anim');
+      void card.offsetWidth; // Riavvia l'animazione CSS
+      card.classList.add('slide-anim');
+
+      const slide = slides[index];
       document.getElementById('gifImage').src = slide.gif;
       document.getElementById('slideText').innerText = slide.text;
 
