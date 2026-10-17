@@ -24,7 +24,6 @@
       position: relative;
     }
 
-    /* Sfondo animato sfumato psichedelico */
     .bg-glow {
       position: absolute;
       width: 600px;
@@ -40,7 +39,6 @@
       100% { transform: translate(100px, 100px) scale(1.3); }
     }
 
-    /* Cuoricini e particelle fluttuanti nello spazio */
     .particle {
       position: absolute;
       color: rgba(255, 182, 193, 0.5);
@@ -58,7 +56,6 @@
       100% { transform: translateY(-10vh) scale(1.5) rotate(360deg); opacity: 0; }
     }
 
-    /* Struttura principale in vetro artistico (Glassmorphism) */
     .card {
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(20px);
@@ -80,7 +77,6 @@
       100% { opacity: 1; transform: scale(1) translateY(0) rotate(0deg); }
     }
 
-    /* Animazione di cambio slide fluida */
     .slide-anim {
       animation: slideTransition 0.5s ease-in-out;
     }
@@ -145,6 +141,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .btn-next {
@@ -153,20 +150,11 @@
       box-shadow: 0 8px 25px rgba(255, 64, 129, 0.5);
     }
 
-    .btn-next:hover {
-      transform: scale(1.08) rotate(2deg);
-      box-shadow: 0 12px 30px rgba(255, 64, 129, 0.8);
-    }
-
     .btn-yes {
       background: linear-gradient(135deg, #ff4081 0%, #ff6b81 100%);
       color: white;
       box-shadow: 0 8px 25px rgba(255, 64, 129, 0.5);
       z-index: 10;
-    }
-
-    .btn-yes:hover {
-      transform: scale(1.1);
     }
 
     .btn-no {
@@ -182,15 +170,12 @@
       color: #ffb6c1;
       cursor: pointer;
       display: inline-block;
-      padding: 6px 15px;
+      padding: 8px 18px;
       border-radius: 20px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px dashed rgba(255, 182, 193, 0.4);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 182, 193, 0.5);
       transition: 0.3s;
-    }
-
-    .music-bar:hover {
-      background: rgba(255, 255, 255, 0.15);
+      -webkit-tap-highlight-color: transparent;
     }
   </style>
 </head>
@@ -198,9 +183,9 @@
 
   <div class="bg-glow"></div>
 
-  <!-- Audio di sottofondo Kawaii -->
-  <audio id="bgMusic" loop preload="auto">
-    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=cute-bgm-108272.mp3" type="audio/mpeg">
+  <!-- Audio MP3 ultra-compatibile iOS/Safari -->
+  <audio id="bgMusic" loop playsinline preload="auto">
+    <source src="https://assets.mixkit.co/music/preview/mixkit-games-world-660.mp3" type="audio/mpeg">
   </audio>
 
   <div class="card" id="mainCard">
@@ -211,11 +196,11 @@
     <h1 id="slideText"></h1>
 
     <div class="btn-container" id="btnArea"></div>
-    <div class="music-bar" id="musicHint" onclick="avviaMusica()">🎵 Clicca qui per attivare la colonna sonora</div>
+    <div class="music-bar" id="musicBtn">🎵 Attiva / Metti Musica</div>
   </div>
 
   <script>
-    // Generatore di particelle fluttuanti artistiche nello sfondo
+    // Particelle di sfondo
     setInterval(() => {
       const p = document.createElement('div');
       p.className = 'particle';
@@ -233,10 +218,10 @@
     const frasiNo = [
       "Ma veramente? ",
       "La dieta si fa a luglio! ",
-      "lo sai anche tu che li vuoi",
-      "chiara"
-      "NEL CHILL"
-    "NO STRESS"
+      "Lo sai anche tu che li vuoi 😉",
+      "Chiara... 😅",
+      "NEL CHILL 😎",
+      "NO STRESS 🧘‍♀️"
     ];
     let indiceFrasiNo = 0;
     let scalaSì = 1;
@@ -266,31 +251,53 @@
         nextSlide: 4
       },
       {
-        gif: "https://tenor.com/it/view/cat-cat-cooking-chef-cat-chef-gif-1132815579185467415",
+        gif: "https://media.tenor.com/E6j8K0P18_gAAAAC/cat-cat-cooking.gif",
         text: "Ti devo dei dolcetti ansiolitici. Ti vanno? 👨‍🍳🧁",
         type: "final_choice"
       }
     ];
 
-    let musicStarted = false;
+    // GESTIONE AUDIO UNIFICATA PER SAFARI / IPHONE
+    const music = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
+    let isPlaying = false;
 
-    function avviaMusica() {
-      const music = document.getElementById('bgMusic');
-      music.volume = 0.5;
-      music.play().then(() => {
-        musicStarted = true;
-        document.getElementById('musicHint').style.display = 'none';
-      }).catch(e => {
-        console.log("In attesa di interazione");
-      });
+    function toggleAudio() {
+      if (!isPlaying) {
+        music.volume = 0.5;
+        music.play().then(() => {
+          isPlaying = true;
+          musicBtn.innerText = "🔊 Musica Attiva";
+        }).catch(err => {
+          console.log("iOS Autoplay restriction:", err);
+        });
+      } else {
+        music.pause();
+        isPlaying = false;
+        musicBtn.innerText = "🔈 Musica in Pausa";
+      }
     }
 
+    // Sblocco immediato su QUALSIASI tocco iniziale dello schermo su iPhone
+    const unlockAudioIOS = () => {
+      if (!isPlaying) {
+        toggleAudio();
+      }
+      document.removeEventListener('touchstart', unlockAudioIOS);
+      document.removeEventListener('click', unlockAudioIOS);
+    };
+
+    document.addEventListener('touchstart', unlockAudioIOS, { once: true });
+    document.addEventListener('click', unlockAudioIOS, { once: true });
+    musicBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleAudio();
+    });
+
     function renderSlide(index) {
-      avviaMusica();
-      
       const card = document.getElementById('mainCard');
       card.classList.remove('slide-anim');
-      void card.offsetWidth; // Riavvia l'animazione CSS
+      void card.offsetWidth;
       card.classList.add('slide-anim');
 
       const slide = slides[index];
