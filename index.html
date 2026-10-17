@@ -2,16 +2,15 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>protocollo ovetto✨</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,700;1,400&display=swap');
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      -webkit-tap-highlight-color: transparent;
     }
 
     body {
@@ -19,218 +18,213 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background: #08020f;
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0f051d;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       overflow: hidden;
       position: relative;
     }
 
-    .bg-glow-1 {
+    /* Sfondo animato sfumato psichedelico */
+    .bg-glow {
       position: absolute;
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle, rgba(255, 0, 128, 0.6) 0%, rgba(255, 0, 212, 0.2) 60%, transparent 80%);
-      top: 10%;
-      left: 5%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 64, 129, 0.4) 0%, rgba(138, 43, 226, 0.2) 50%, transparent 70%);
+      animation: moveGlow 10s infinite alternate ease-in-out;
+      z-index: 0;
       filter: blur(60px);
-      animation: pulseGlow 6s infinite alternate ease-in-out;
-      z-index: 0;
     }
 
-    .bg-glow-2 {
+    @keyframes moveGlow {
+      0% { transform: translate(-100px, -100px) scale(1); }
+      100% { transform: translate(100px, 100px) scale(1.3); }
+    }
+
+    /* Cuoricini e particelle fluttuanti nello spazio */
+    .particle {
       position: absolute;
-      width: 350px;
-      height: 350px;
-      background: radial-gradient(circle, rgba(121, 40, 202, 0.6) 0%, rgba(0, 212, 255, 0.2) 60%, transparent 80%);
-      bottom: 10%;
-      right: 5%;
-      filter: blur(65px);
-      animation: pulseGlow 8s infinite alternate-reverse ease-in-out;
-      z-index: 0;
-    }
-
-    @keyframes pulseGlow {
-      0% { transform: scale(1) translate(0, 0); opacity: 0.7; }
-      100% { transform: scale(1.3) translate(20px, -20px); opacity: 1; }
-    }
-
-    .ambient-particle {
-      position: absolute;
+      color: rgba(255, 182, 193, 0.5);
       font-size: 20px;
-      animation: floatUp 5s infinite linear;
+      animation: floatUp 6s infinite linear;
       z-index: 1;
-      pointer-events: none;
       user-select: none;
+      pointer-events: none;
     }
 
     @keyframes floatUp {
-      0% { transform: translateY(105vh) scale(0.4) rotate(0deg); opacity: 0; }
+      0% { transform: translateY(105vh) scale(0.5) rotate(0deg); opacity: 0; }
       20% { opacity: 0.8; }
       80% { opacity: 0.8; }
-      100% { transform: translateY(-10vh) scale(1.4) rotate(360deg); opacity: 0; }
+      100% { transform: translateY(-10vh) scale(1.5) rotate(360deg); opacity: 0; }
     }
 
+    /* Struttura principale in vetro artistico (Glassmorphism) */
     .card {
       background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      padding: 38px 24px;
-      border-radius: 38px;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 
-                  inset 0 0 0 1.5px rgba(255, 255, 255, 0.25),
-                  0 0 40px rgba(255, 0, 128, 0.2);
-      max-width: 380px;
-      width: 88%;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 40px 30px;
+      border-radius: 35px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+      max-width: 440px;
+      width: 90%;
       position: relative;
       z-index: 10;
       text-align: center;
-      transform-origin: center;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: cardAppear 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
 
+    @keyframes cardAppear {
+      0% { opacity: 0; transform: scale(0.8) translateY(40px) rotate(-3deg); }
+      100% { opacity: 1; transform: scale(1) translateY(0) rotate(0deg); }
+    }
+
+    /* Animazione di cambio slide fluida */
     .slide-anim {
-      animation: popIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      animation: slideTransition 0.5s ease-in-out;
     }
 
-    @keyframes popIn {
-      0% { opacity: 0; transform: scale(0.75) translateY(30px); }
+    @keyframes slideTransition {
+      0% { opacity: 0; transform: scale(0.9) translateY(15px); }
       100% { opacity: 1; transform: scale(1) translateY(0); }
     }
 
     .gif-container {
-      margin-bottom: 22px;
+      margin-bottom: 25px;
       position: relative;
-      display: inline-block;
     }
 
     .gif-container img {
-      width: 200px;
-      height: 200px;
+      width: 210px;
+      height: 210px;
       object-fit: cover;
-      border-radius: 28px;
-      box-shadow: 0 12px 30px rgba(255, 0, 128, 0.5), 0 0 20px rgba(255, 255, 255, 0.3);
-      border: 3px solid rgba(255, 255, 255, 0.85);
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(255, 64, 129, 0.4);
+      border: 3px solid rgba(255, 255, 255, 0.6);
       animation: floatGif 3s infinite ease-in-out;
     }
 
     @keyframes floatGif {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-8px) rotate(1.5deg); }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
     }
 
     h1 {
-      font-size: 1.45rem;
+      font-size: 1.5rem;
       color: #ffffff;
-      margin-bottom: 22px;
-      font-weight: 800;
-      line-height: 1.35;
-      min-height: 65px;
+      margin-bottom: 25px;
+      font-weight: 700;
+      line-height: 1.4;
+      min-height: 70px;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-shadow: 0 3px 12px rgba(0,0,0,0.6);
-      letter-spacing: -0.2px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
 
     .btn-container {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 14px;
+      gap: 15px;
       flex-wrap: wrap;
-      margin-top: 5px;
+      margin-top: 15px;
       min-height: 65px;
     }
 
     .btn {
-      padding: 15px 30px;
+      padding: 14px 28px;
       font-size: 1.05rem;
-      font-weight: 900;
+      font-weight: bold;
       border-radius: 50px;
       border: none;
-      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s, box-shadow 0.2s;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      user-select: none;
-    }
-
-    .btn:active {
-      transform: scale(0.92) !important;
     }
 
     .btn-next {
-      background: linear-gradient(135deg, #ff007f 0%, #7928ca 100%);
+      background: linear-gradient(135deg, #ff4081 0%, #7928ca 100%);
       color: white;
-      box-shadow: 0 8px 25px rgba(255, 0, 127, 0.55);
+      box-shadow: 0 8px 25px rgba(255, 64, 129, 0.5);
+    }
+
+    .btn-next:hover {
+      transform: scale(1.08) rotate(2deg);
+      box-shadow: 0 12px 30px rgba(255, 64, 129, 0.8);
     }
 
     .btn-yes {
-      background: linear-gradient(135deg, #ff007f 0%, #ff5e62 100%);
+      background: linear-gradient(135deg, #ff4081 0%, #ff6b81 100%);
       color: white;
-      box-shadow: 0 10px 30px rgba(255, 0, 127, 0.65), 0 0 15px rgba(255, 255, 255, 0.4);
+      box-shadow: 0 8px 25px rgba(255, 64, 129, 0.5);
       z-index: 10;
     }
 
+    .btn-yes:hover {
+      transform: scale(1.1);
+    }
+
     .btn-no {
-      background: rgba(255, 255, 255, 0.12);
-      color: #eee;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.15);
+      color: #ddd;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(5px);
     }
 
-    .emoji-pop {
-      position: fixed;
-      font-size: 32px;
-      z-index: 9999;
-      pointer-events: none;
-      user-select: none;
-      animation: burstOut 1.8s cubic-bezier(0.12, 0.8, 0.32, 1) forwards;
+    .music-bar {
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: #ffb6c1;
+      cursor: pointer;
+      display: inline-block;
+      padding: 6px 15px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px dashed rgba(255, 182, 193, 0.4);
+      transition: 0.3s;
     }
 
-    @keyframes burstOut {
-      0% {
-        opacity: 1;
-        transform: translate(0, 0) scale(0.3) rotate(0deg);
-      }
-      50% {
-        opacity: 1;
-        transform: translate(var(--vx), var(--vy)) scale(1.8) rotate(180deg);
-      }
-      100% {
-        opacity: 0;
-        transform: translate(calc(var(--vx) * 1.4), calc(var(--vy) * 1.4 + 100px)) scale(0.8) rotate(360deg);
-      }
+    .music-bar:hover {
+      background: rgba(255, 255, 255, 0.15);
     }
   </style>
 </head>
 <body>
 
-  <div class="bg-glow-1"></div>
-  <div class="bg-glow-2"></div>
+  <div class="bg-glow"></div>
+
+  <!-- Audio di sottofondo Kawaii -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=cute-bgm-108272.mp3" type="audio/mpeg">
+  </audio>
 
   <div class="card" id="mainCard">
     <div class="gif-container">
-      <img id="gifImage" src="" alt="Iconic Cat">
+      <img id="gifImage" src="" alt="Opera d'Arte">
     </div>
 
     <h1 id="slideText"></h1>
 
     <div class="btn-container" id="btnArea"></div>
+    <div class="music-bar" id="musicHint" onclick="avviaMusica()">🎵 Clicca qui per attivare la colonna sonora</div>
   </div>
 
   <script>
+    // Generatore di particelle fluttuanti artistiche nello sfondo
     setInterval(() => {
       const p = document.createElement('div');
-      p.className = 'ambient-particle';
-      p.innerText = ['✨', '💖', '🔮', '🧁', '💖', '⭐'][Math.floor(Math.random() * 6)];
+      p.className = 'particle';
+      p.innerHTML = Math.random() > 0.5 ? '✨' : '💖';
       p.style.left = Math.random() * 100 + 'vw';
-      p.style.animationDuration = (Math.random() * 2 + 3.5) + 's';
+      p.style.animationDuration = (Math.random() * 3 + 4) + 's';
       document.body.appendChild(p);
-      setTimeout(() => p.remove(), 4500);
-    }, 300);
+      setTimeout(() => p.remove(), 6000);
+    }, 400);
 
     const tuoNumero = "393466297958";
     const messaggioWhatsApp = "BUONASERA SONO MARIACHIARAK E PRETENDO I DOLCETTI CHE MI DEVI";
@@ -239,9 +233,9 @@
     const frasiNo = [
       "Ma veramente? ",
       "La dieta si fa a luglio! ",
-      "Lo sai anche tu che li vuoi ",
-      "Chiara... ",
-      "NEL CHILL ",
+      "Lo sai anche tu che li vuoi 😉",
+      "Chiara... 😅",
+      "NEL CHILL 😎",
       "NO STRESS 🧘‍♀️"
     ];
     let indiceFrasiNo = 0;
@@ -256,18 +250,18 @@
       },
       {
         gif: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExeWplZWNsNW5wd3R0djBmdm9icTI3NWlqMmV2cmZzdzN5dHowZDZpaCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/nCSNKeaXfpfyZZXDio/giphy.gif",
-        text: "...e percepivo un'aura di stress. Sei stressata?",
+        text: "...e percepivo un'aura di stress. Sei stressata? ",
         type: "choice_stress"
       },
       {
         gif: "https://media3.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3eno5a2lwdTZtcXI1YXA1d3VqZHJ0MG0zYzA5cmRueDdweHV6cWxmNyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3CgrPTmlp0dIQ/giphy.webp",
-        text: "Conosco un rimedio infallibile contro lo stress. 💊",
+        text: "Conosco un rimedio infallibile contro lo stress. ",
         type: "next",
         nextSlide: 3
       },
       {
         gif: "https://media1.tenor.com/m/j5rPRPBwSOMAAAAd/cat-smacking-other-cat-cat.gif",
-        text: "No, non è quello che pensi... cioè sì, ma no. 😼",
+        text: "No, non è quello che pensi... cioè sì, ma no. ",
         type: "next",
         nextSlide: 4
       },
@@ -278,4 +272,81 @@
       }
     ];
 
-    function esplosioneDopamina
+    let musicStarted = false;
+
+    function avviaMusica() {
+      const music = document.getElementById('bgMusic');
+      music.volume = 0.5;
+      music.play().then(() => {
+        musicStarted = true;
+        document.getElementById('musicHint').style.display = 'none';
+      }).catch(e => {
+        console.log("In attesa di interazione");
+      });
+    }
+
+    function renderSlide(index) {
+      avviaMusica();
+      
+      const card = document.getElementById('mainCard');
+      card.classList.remove('slide-anim');
+      void card.offsetWidth;
+      card.classList.add('slide-anim');
+
+      const slide = slides[index];
+      document.getElementById('gifImage').src = slide.gif;
+      document.getElementById('slideText').innerText = slide.text;
+
+      const btnArea = document.getElementById('btnArea');
+      btnArea.innerHTML = "";
+
+      if (slide.type === "next") {
+        const nextBtn = document.createElement("button");
+        nextBtn.className = "btn btn-next";
+        nextBtn.innerHTML = "Avanti ➔";
+        nextBtn.onclick = () => renderSlide(slide.nextSlide);
+        btnArea.appendChild(nextBtn);
+      } 
+      else if (slide.type === "choice_stress") {
+        const yesBtn = document.createElement("button");
+        yesBtn.className = "btn btn-yes";
+        yesBtn.innerText = "SÌ 😅";
+        yesBtn.onclick = () => renderSlide(2);
+
+        const noBtn = document.createElement("button");
+        noBtn.className = "btn btn-no";
+        noBtn.innerText = "NO 😇";
+        noBtn.onclick = () => renderSlide(2);
+
+        btnArea.appendChild(yesBtn);
+        btnArea.appendChild(noBtn);
+      } 
+      else if (slide.type === "final_choice") {
+        const yesLink = document.createElement("a");
+        yesLink.id = "finalYesBtn";
+        yesLink.className = "btn btn-yes";
+        yesLink.innerText = "SÌ! 🧁";
+        yesLink.href = linkWhatsApp;
+        yesLink.target = "_blank";
+
+        const noBtn = document.createElement("button");
+        noBtn.className = "btn btn-no";
+        noBtn.innerText = "NO 😅";
+
+        noBtn.onclick = () => {
+          document.getElementById('slideText').innerText = frasiNo[indiceFrasiNo % frasiNo.length];
+          indiceFrasiNo++;
+          scalaSì += 0.35;
+          yesLink.style.transform = `scale(${scalaSì})`;
+        };
+
+        btnArea.appendChild(yesLink);
+        btnArea.appendChild(noBtn);
+      }
+    }
+
+    renderSlide(0);
+  </script>
+
+</body>
+</html>
