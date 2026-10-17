@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PROTOCOLLO SPINACINA</title>
+  <title>Notifica di Servizio 🌹</title>
   <style>
     * {
       box-sizing: border-box;
@@ -21,7 +21,7 @@
       padding: 20px;
     }
     .card {
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
       padding: 35px 25px;
       border-radius: 24px;
@@ -29,29 +29,29 @@
       max-width: 420px;
       width: 100%;
       border: 2px solid #ffe0e9;
+      position: relative;
     }
     .gif-container {
       margin-bottom: 20px;
     }
     .gif-container img {
-      width: 180px;
-      height: 180px;
+      width: 200px;
+      height: 200px;
       object-fit: cover;
-      border-radius: 50%;
-      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.3);
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.25);
       border: 4px solid #fff;
     }
     h1 {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       color: #d63384;
-      margin-bottom: 12px;
+      margin-bottom: 20px;
       font-weight: 700;
-    }
-    p.subtitle {
-      font-size: 0.95rem;
-      color: #888;
-      margin-bottom: 25px;
-      font-style: italic;
+      line-height: 1.4;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .btn-container {
       display: flex;
@@ -59,10 +59,11 @@
       align-items: center;
       gap: 15px;
       flex-wrap: wrap;
-      margin-top: 10px;
+      margin-top: 15px;
+      min-height: 60px;
     }
     .btn {
-      padding: 12px 24px;
+      padding: 12px 26px;
       font-size: 1rem;
       font-weight: bold;
       border-radius: 30px;
@@ -72,70 +73,160 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
+    }
+    .btn-next {
+      background-color: #ff4081;
+      color: white;
+      box-shadow: 0 6px 18px rgba(255, 64, 129, 0.35);
+    }
+    .btn-next:hover {
+      background-color: #e91e63;
     }
     .btn-yes {
       background-color: #ff4081;
       color: white;
       box-shadow: 0 6px 18px rgba(255, 64, 129, 0.35);
-      cursor: pointer;
       z-index: 10;
     }
-    .btn-yes:hover {
-      background-color: #e91e63;
-    }
-    .btn-no {
-      background-color: #f0f0f0;
+    .music-hint {
+      font-size: 0.75rem;
       color: #aaa;
-      cursor: not-allowed;
-      border: 1px solid #ddd;
-      pointer-events: none;
-    }
-    .no-wrapper {
-      display: inline-block;
-      cursor: not-allowed;
+      margin-top: 15px;
     }
   </style>
 </head>
 <body>
 
+  <!-- Elemento audio nascosto con una musichetta di sottofondo -->
+  <audio id="bgMusic" loop>
+    <source src="https://actions.google.com/sounds/v1/ambiences/coffeeshop.ogg" type="audio/ogg">
+    <source src="https://www.bensound.com/bensound-music/bensound-cute.mp3" type="audio/mpeg">
+  </audio>
+
   <div class="card">
     <div class="gif-container">
-      <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExN3R4dGwzeGlqZnRnNWs4czR0eng5b2M3cnlsNW1rbTI4MGZ5dDZvdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Oi3rpRjwkVHyHMfkTz/giphy.gif2MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif" alt="Gatto con la rosa">
+      <img id="gifImage" src="" alt="Gatto">
     </div>
 
-    <h1>Prego fornire numero di telefono 🌹</h1>
-    <p class="subtitle">(Non verranno effettuate chiamate notturne)</p>
+    <h1 id="slideText"></h1>
 
-    <div class="btn-container">
-      <a id="yesBtn" class="btn btn-yes" href="#" target="_blank">Lo voglio 💖</a>
-      
-      <div class="no-wrapper" id="noWrapper">
-        <button class="btn btn-no" tabindex="-1">No 😅</button>
-      </div>
-    </div>
+    <div class="btn-container" id="btnArea"></div>
+    <div class="music-hint">🎵 La musica si attiverà al primo tocco</div>
   </div>
 
   <script>
     const tuoNumero = "393466297958";
-    const messaggio = "SALVE SONO MARIACHIARAK VORREI UNA BIRRA";
+    const messaggioWhatsApp = "BUONASERA SONO MARIACHIARAK E PRETENDO I DOLCETTI CHE MI DEVI";
+    const linkWhatsApp = `https://api.whatsapp.com/send?phone=${tuoNumero}&text=${encodeURIComponent(messaggioWhatsApp)}`;
 
-    const yesBtn = document.getElementById('yesBtn');
-    yesBtn.href = `https://wa.me/${tuoNumero}?text=${encodeURIComponent(messaggio)}`;
+    const frasiNo = [
+      "Ma veramente? 😅",
+      "La dieta si fa a luglio! 🥐",
+      "Non accetto un no come risposta! 😜",
+      "Dai, clicca quel tasto rosa enorme!"
+    ];
+    let indiceFrasiNo = 0;
+    let scalaSì = 1;
 
-    let scala = 1;
-    const noWrapper = document.getElementById('noWrapper');
+    const slides = [
+      {
+        gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3A5ZmFmN3Rrb3N2cnlhOXByNTF3dzdzOGYzbmt3dm9ydmd4czByOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKSjRrfIPjeiVyM/giphy.gif",
+        text: "Sono un sensitivo... 🧙‍♂️🐱",
+        type: "next",
+        nextSlide: 1
+      },
+      {
+        gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNXdqMWt5M3p0eDZocjV0eGVyeTY1bmtkcnRqN2VvMzNmNjU1ZWpkayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/13CoXDiaCcCoyk/giphy.gif",
+        text: "...e percepivo un'aura di stress. Sei stressata? 🙀",
+        type: "choice_stress"
+      },
+      {
+        gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW8xaGthNmI5aGlzandmNzV5b2psMHlpaG05d2I5d3AzaWhhZzhkMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/mlvseq9yvZhba/giphy.gif",
+        text: "Conosco un rimedio infallibile ضد lo stress. 👨‍⚕️🐱",
+        type: "next",
+        nextSlide: 3
+      },
+      {
+        gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWR2MHM5MGIxcnh2ZXZmYXFidWdydXp1aTRkdm16dmtxcjlsMnNneSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/B4ORVnBvJCVvq/giphy.gif",
+        text: "No, non è quello che pensi... cioè sì, ma no. 😼",
+        type: "next",
+        nextSlide: 4
+      },
+      {
+        gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWU0MXYxeWRmd2t5bTB4NzlyNDZ3bjI0ejRxNmZlMm1lZXE4enMyeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif",
+        text: "Ti devo dei dolcetti ansiolitici. Ti vanno? 👨‍🍳🧁",
+        type: "final_choice"
+      }
+    ];
 
-    function ingrandisciSì() {
-      scala += 0.25;
-      yesBtn.style.transform = `scale(${scala})`;
+    let musicStarted = false;
+
+    function avviaMusica() {
+      if (!musicStarted) {
+        const music = document.getElementById('bgMusic');
+        music.volume = 0.4; // Volume gradevole non troppo alto
+        music.play().catch(e => console.log("Audio bloccato dal browser"));
+        musicStarted = true;
+      }
     }
 
-    noWrapper.addEventListener('click', ingrandisciSì);
-    noWrapper.addEventListener('mouseover', ingrandisciSì);
-    noWrapper.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      ingrandisciSì();
-    });
+    function renderSlide(index) {
+      avviaMusica(); // Fa partire la musica appena interagisce
+      const slide = slides[index];
+      
+      document.getElementById('gifImage').src = slide.gif;
+      document.getElementById('slideText').innerText = slide.text;
+
+      const btnArea = document.getElementById('btnArea');
+      btnArea.innerHTML = "";
+
+      if (slide.type === "next") {
+        const nextBtn = document.createElement("button");
+        nextBtn.className = "btn btn-next";
+        nextBtn.innerHTML = "Avanti ➔";
+        nextBtn.onclick = () => renderSlide(slide.nextSlide);
+        btnArea.appendChild(nextBtn);
+      } 
+      else if (slide.type === "choice_stress") {
+        const yesBtn = document.createElement("button");
+        yesBtn.className = "btn btn-yes";
+        yesBtn.innerText = "SÌ 😅";
+        yesBtn.onclick = () => renderSlide(2);
+
+        const noBtn = document.createElement("button");
+        noBtn.className = "btn btn-no";
+        noBtn.innerText = "NO 😇";
+        noBtn.onclick = () => renderSlide(2);
+
+        btnArea.appendChild(yesBtn);
+        btnArea.appendChild(noBtn);
+      } 
+      else if (slide.type === "final_choice") {
+        const yesLink = document.createElement("a");
+        yesLink.id = "finalYesBtn";
+        yesLink.className = "btn btn-yes";
+        yesLink.innerText = "SÌ! 🧁";
+        yesLink.href = linkWhatsApp;
+        yesLink.target = "_blank";
+
+        const noBtn = document.createElement("button");
+        noBtn.className = "btn btn-no";
+        noBtn.innerText = "NO 😅";
+
+        noBtn.onclick = () => {
+          document.getElementById('slideText').innerText = frasiNo[indiceFrasiNo % frasiNo.length];
+          indiceFrasiNo++;
+          scalaSì += 0.35;
+          yesLink.style.transform = `scale(${scalaSì})`;
+        };
+
+        btnArea.appendChild(yesLink);
+        btnArea.appendChild(noBtn);
+      }
+    }
+
+    renderSlide(0);
   </script>
 
 </body>
